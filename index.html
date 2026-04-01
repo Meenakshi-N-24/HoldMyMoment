@@ -1,24 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Interactive Date</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HoldMyMoment — A Date with Giga Noob</title>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet"/>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-  <div id="scene">
+<audio id="bgm" src="lamore-dice-ciao.mp3" loop></audio>
 
-    <div id="moon"></div>
+<div id="scene">
 
-    <div id="character"></div>
+  <div id="grain"></div>
+  <div id="moon"></div>
+  <div id="hill"></div>
 
-    <button id="touch">Put your finger here</button>
-
-    <p id="dialogue"></p>
-
+  <div id="daisy">
+    <div id="daisy-petals">
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+      <div id="daisy-center"></div>
+    </div>
+    <div id="daisy-stem"></div>
   </div>
 
-  <script src="script.js"></script>
+  <div id="nod-wrapper">
+    <div id="character">
+      <div id="char-body">
+        <div class="eyes">
+          <div class="eye" id="eye-l"></div>
+          <div class="eye" id="eye-r"></div>
+        </div>
+        <div id="mouth"></div>
+
+        <div id="arm-left"></div>
+        <div id="arm-right">
+          <div id="gift">🌸</div>
+        </div>
+      </div>
+
+      <div id="char-legs">
+        <div class="leg"></div>
+        <div class="leg"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bubble"></div>
+  <div id="sad-overlay"></div>
+
+  <div id="target-zone">
+    <div id="target-ring"></div>
+  </div>
+
+  <div id="prompt-text">Put your finger here</div>
+  <div id="hold-hint">Hold to continue ♡</div>
+
+  <button id="mute-btn">♪</button>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
