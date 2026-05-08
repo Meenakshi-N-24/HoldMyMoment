@@ -1,70 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HoldMyMoment — A Date with Giga Noob</title>
-
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet"/>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HoldMyMoment</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<audio id="bgm" src="lamore-dice-ciao.mp3" loop></audio>
 
 <div id="scene">
 
-  <div id="grain"></div>
+  <!-- Moon -->
   <div id="moon"></div>
-  <div id="hill"></div>
 
-  <div id="daisy">
-    <div id="daisy-petals">
-      <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
-      <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
-      <div id="daisy-center"></div>
-    </div>
-    <div id="daisy-stem"></div>
+  <!-- Stars -->
+  <div class="star s1"></div>
+  <div class="star s2"></div>
+  <div class="star s3"></div>
+  <div class="star s4"></div>
+  <div class="star s5"></div>
+
+  <!-- Road -->
+  <div id="road"></div>
+
+  <!-- Flower -->
+  <div id="flower-side">🌸</div>
+
+  <!-- Giga Back View -->
+  <div id="giga">
+
+  <div id="giga-head"></div>
+
+  <div id="left-arm"></div>
+
+  <div id="giga-body"></div>
+
+  <div id="right-arm"></div>
+
+  <div id="legs">
+    <div class="leg left-leg"></div>
+    <div class="leg right-leg"></div>
   </div>
 
-  <div id="nod-wrapper">
-    <div id="character">
-      <div id="char-body">
-        <div class="eyes">
-          <div class="eye" id="eye-l"></div>
-          <div class="eye" id="eye-r"></div>
-        </div>
-        <div id="mouth"></div>
+</div>
 
-        <div id="arm-left"></div>
-        <div id="arm-right">
-          <div id="gift">🌸</div>
-        </div>
-      </div>
+  <!-- Hold Target -->
+  <div id="target-ring"></div>
 
-      <div id="char-legs">
-        <div class="leg"></div>
-        <div class="leg"></div>
-      </div>
-    </div>
-  </div>
+  <!-- Prompt -->
+  <div id="prompt">Place your thumb here</div>
 
+  <!-- Dialogue -->
   <div id="bubble"></div>
-  <div id="sad-overlay"></div>
-
-  <div id="target-zone">
-    <div id="target-ring"></div>
-  </div>
-
-  <div id="prompt-text">Put your finger here</div>
-  <div id="hold-hint">Hold to continue ♡</div>
-
-  <button id="mute-btn">♪</button>
+  <div id="held-flower">🌸</div>
 
 </div>
 

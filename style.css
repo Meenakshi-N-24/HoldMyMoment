@@ -1,623 +1,407 @@
-/* ── RESET & BASE ─────────────────────────────────────────── */
-  *, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: black;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+#scene {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  overflow: hidden;
+}
+
+/* ---------------- */
+/* MOON */
+/* ---------------- */
+
+#moon {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  background: white;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* ---------------- */
+/* STARS */
+/* ---------------- */
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.s1 { top: 80px; left: 100px; }
+.s2 { top: 120px; right: 150px; }
+.s3 { top: 200px; left: 300px; }
+.s4 { top: 160px; right: 350px; }
+.s5 { top: 250px; left: 500px; }
+
+/* ---------------- */
+/* ROAD */
+/* ---------------- */
+
+#road {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100%;
+  height: 45vh;
+
+  background: #e8e8e8;
+  border-radius: 50% 50% 0 0;
+
+  z-index: 1;
+}
+
+/* simple path lines */
+
+#road::before,
+#road::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: rgba(0,0,0,0.25);
+}
+
+#road::before {
+  left: 42%;
+  transform: rotate(8deg);
+}
+
+#road::after {
+  right: 42%;
+  transform: rotate(-8deg);
+}
+
+/* ---------------- */
+/* FLOWER */
+/* ---------------- */
+
+#flower-side {
+  position: absolute;
+  right: 32%;
+  top: 260px;
+  font-size: 42px;
+  z-index: 3;
+}
+
+/* ---------------- */
+/* CUTE GIGA */
+/* ---------------- */
+
+/* ---------------- */
+/* PLAYGIGA POSE */
+/* ---------------- */
+
+#giga {
+  position: absolute;
+  bottom: 95px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Head */
+
+#giga-head {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  z-index: 3;
+}
+
+/* Hide eyes by default */
+
+#giga-head::before,
+#giga-head::after {
+  content: "";
+  position: absolute;
+  opacity: 0;
+}
+
+/* Eyes */
+/* Eyes appear only during talking moment */
+
+#giga.talking #giga-head::before,
+#giga.talking #giga-head::after {
+  width: 8px;
+  height: 32px;
+  background: black;
+  border-radius: 4px;
+  top: 28px;
+  opacity: 1;
+}
+
+#giga.talking #giga-head::before {
+  left: 28px;
+}
+
+#giga.talking #giga-head::after {
+  right: 28px;
+}
+
+
+/* Body */
+
+#giga-body {
+  width: 75px;
+  height: 110px;
+  background: #f8f8f8;
+box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
+  border-radius: 35px 35px 25px 25px;
+  margin-top: -12px;
+  z-index: 2;
+}
+
+/* Eyes appear only during talking moment */
+
+#giga.talking #giga-head::before,
+#giga.talking #giga-head::after {
+  width: 8px;
+  height: 32px;
+  background: black;
+  border-radius: 4px;
+  top: 28px;
+  opacity: 1;
+}
+
+#giga.talking #giga-head::before {
+  left: 28px;
+}
+
+#giga.talking #giga-head::after {
+  right: 28px;
+}
+
+/* LEFT ARM = pointing to flower */
+
+/* RIGHT ARM = holding our hand */
+
+#right-arm {
+  position: absolute;
+  width: 24px;
+  height: 90px;
+  background: white;
+  border-radius: 20px;
+
+  top: 130px;
+  left: -35px;
+
+  transform: rotate(60deg);
+  z-index: 1;
+}
+
+/* LEFT ARM hidden by default */
+
+#left-arm {
+  position: absolute;
+  width: 22px;
+  height: 75px;
+  background: white;
+  border-radius: 20px;
+
+  top: 90px;
+  right: -5px;
+
+  transform: rotate(-60deg);
+  opacity: 0;
+
+  z-index: 1;
+}
+
+/* Legs */
+
+#legs {
+  display: flex;
+  gap: 14px;
+  margin-top: -4px;
+}
+
+.leg {
+  width: 18px;
+  height: 32px;
+  background: white;
+  border-radius: 0 0 14px 14px;
+}
+
+.left-leg {
+  transform: rotate(4deg);
+}
+
+.right-leg {
+  transform: rotate(-4deg);
+}
+/* ---------------- */
+/* TARGET */
+/* ---------------- */
+
+#target-ring {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 110px;
+  border: 2px solid rgba(0,0,0,0.4);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  z-index: 6;
+}
+
+/* ---------------- */
+/* PROMPT */
+/* ---------------- */
+
+#prompt {
+  position: absolute;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 14px;
+  z-index: 7;
+}
+
+/* ---------------- */
+/* BUBBLE */
+/* ---------------- */
+
+#bubble {
+  position: absolute;
+  left: 39%;
+  bottom: 290px;
+
+  background: white;
+  color: black;
+
+  padding: 14px 24px;
+  font-size: 22px;
+  font-weight: bold;
+
+  border: 3px solid black;
+  border-radius: 40px;
+
+  opacity: 0;
+  z-index: 20;
+
+  transform: rotate(-8deg);
+}
+
+/* little bubble tail */
+
+#bubble::after {
+  content: "";
+  position: absolute;
+
+  bottom: -14px;
+  left: 30px;
+
+  width: 20px;
+  height: 20px;
+
+  background: white;
+  border-left: 3px solid black;
+  border-bottom: 3px solid black;
+
+  transform: rotate(-35deg);
+}
+
+/* walking bounce */
+
+
+.walking {
+  animation: gigaWalk 0.5s ease-in-out infinite;
+}
+
+.walking .left-leg {
+  animation: leftStep 0.5s ease-in-out infinite;
+}
+
+.walking .right-leg {
+  animation: rightStep 0.5s ease-in-out infinite;
+}
+
+/* Flower in our hand */
+
+#held-flower {
+  position: absolute;
+  right: 180px;
+  bottom: 160px;
+
+  font-size: 48px;
+  opacity: 0;
+
+  z-index: 30;
+  transition: 0.4s ease;
+}
+
+/* ---------------- */
+/* WALKING ANIMATION */
+/* ---------------- */
+
+@keyframes gigaWalk {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0px);
   }
- 
-  html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;          /* No scroll bars on the experience */
-    background: #000;
+
+  50% {
+    transform: translateX(-50%) translateY(-6px);
   }
- 
-  /* ── DESIGN TOKENS (CSS Variables) ───────────────────────── */
-  :root {
-    --white:        #ffffff;
-    --off-white:    #f0efe8;
-    --cream:        #e8e8c8;
-    --black:        #000000;
-    --moon-glow:    rgba(255, 255, 200, 0.45);
-    --font-retro:   'Special Elite', 'Courier New', monospace;
-    --bubble-speed: 0.4s;
-    --arm-speed:    0.5s;
+}
+
+@keyframes leftStep {
+  0%, 100% {
+    transform: rotate(8deg);
   }
- 
-  /* ── MAIN SCENE CONTAINER ─────────────────────────────────── */
-  #scene {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    overflow: hidden;
-    font-family: var(--font-retro);
- 
-    /* Prevent text selection during hold gestures */
-    user-select: none;
-    -webkit-user-select: none;
+
+  50% {
+    transform: rotate(-8deg);
   }
- 
- 
-  /* ══════════════════════════════════════════════════════════
-     ATMOSPHERIC LAYERS
-     (Moon, Hill, Grain overlay)
-  ══════════════════════════════════════════════════════════ */
- 
-  /* ── FILM GRAIN OVERLAY ───────────────────────────────────
-     Creates a subtle analogue texture over the whole scene.
-     Uses an inline SVG noise filter as a data URI.
-     pointer-events:none ensures it never blocks clicks.      */
-  #grain {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
-    opacity: 0.22;
-    pointer-events: none;
-    z-index: 50;                /* Always on top of everything */
+}
+
+@keyframes rightStep {
+  0%, 100% {
+    transform: rotate(-8deg);
   }
- 
-  /* ── FULL MOON ────────────────────────────────────────────
-     Radial gradient fakes a 3D sphere look.
-     box-shadow creates the soft glow halo.
-     .glow class is toggled in Scene 3 (moon dialogue).       */
-  #moon {
-    position: absolute;
-    top: 6vh;
-    right: 8vw;
-    width: clamp(70px, 11vw, 110px);   /* Responsive size */
-    height: clamp(70px, 11vw, 110px);
-    border-radius: 50%;
- 
-    /* Faint crater-like highlight in upper-left */
-    background: radial-gradient(
-      circle at 38% 38%,
-      #ffffff 55%,
-      var(--cream) 100%
-    );
- 
-    /* Default soft ambient glow */
-    box-shadow:
-      0 0 30px 8px  rgba(255, 255, 200, 0.15),
-      0 0 80px 20px rgba(255, 255, 200, 0.07);
- 
-    transition: box-shadow 1.2s ease;  /* Smooth glow transition */
+
+  50% {
+    transform: rotate(8deg);
   }
- 
-  /* Moon intensified glow — activated in Scene 3 */
-  #moon.glow {
-    box-shadow:
-      0 0 60px 24px rgba(255, 255, 200, 0.50),
-      0 0 130px 50px rgba(255, 255, 200, 0.22);
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
   }
- 
-  /* ── ROLLING HILL ─────────────────────────────────────────
-     A simple elliptical shape at the bottom of the screen.
-     Gives the character a "ground" to stand on.              */
-  #hill {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 160%;
-    height: 35vh;
-    background: radial-gradient(ellipse 70% 100% at 50% 100%, #111 50%, #181818 100%);
-    border-radius: 50% 50% 0 0 / 80px 80px 0 0;
-    z-index: 1;
+
+  50% {
+    transform: translateX(-50%) scale(1.03);
   }
- 
- 
-  /* ══════════════════════════════════════════════════════════
-     DAISY FLOWER
-  ══════════════════════════════════════════════════════════ */
- 
-  /* ── DAISY WRAPPER ────────────────────────────────────────
-     Positioned on the hill's left slope.
-     transform-origin: bottom — so wiggle rotates from the stem. */
-  #daisy {
-    position: absolute;
-    left: clamp(50px, 9vw, 120px);
-    bottom: clamp(25vh, 30vh, 38vh);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transform-origin: bottom center;
-    z-index: 2;
-  }
- 
-  /* Wiggle animation — triggered in Scene 2 */
-  #daisy.wiggle {
-    animation: wiggle 0.65s ease;
-  }
- 
-  @keyframes wiggle {
-    0%   { transform: rotate(0deg); }
-    25%  { transform: rotate(-9deg); }
-    75%  { transform: rotate(9deg); }
-    100% { transform: rotate(0deg); }
-  }
- 
-  /* ── PETAL RING ───────────────────────────────────────────
-     8 petals rotated evenly around a center circle.
-     Each petal is an oval; transform-origin at bottom
-     makes them radiate outward from center.                  */
-  #daisy-petals {
-    position: relative;
-    width: 30px;
-    height: 30px;
-  }
- 
-  .petal {
-    position: absolute;
-    width: 8px;
-    height: 15px;
-    background: var(--white);
-    border-radius: 50%;
-    transform-origin: 4px 15px;   /* Pivot at the base of each petal */
-    left: 11px;
-    top: 0;
-  }
- 
-  /* Rotate each petal 45° apart to form the ring */
-  .petal:nth-child(1) { transform: rotate(0deg); }
-  .petal:nth-child(2) { transform: rotate(45deg); }
-  .petal:nth-child(3) { transform: rotate(90deg); }
-  .petal:nth-child(4) { transform: rotate(135deg); }
-  .petal:nth-child(5) { transform: rotate(180deg); }
-  .petal:nth-child(6) { transform: rotate(225deg); }
-  .petal:nth-child(7) { transform: rotate(270deg); }
-  .petal:nth-child(8) { transform: rotate(315deg); }
- 
-  /* Yellow-ish center disc of the daisy */
-  #daisy-center {
-    position: absolute;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: var(--white);    /* White in B&W mode */
-    top: 9px;
-    left: 9px;
-  }
- 
-  /* Thin vertical stem */
-  #daisy-stem {
-    width: 2px;
-    height: clamp(35px, 5vh, 55px);
-    background: var(--white);
-    border-radius: 1px;
-  }
- 
- 
-  /* ══════════════════════════════════════════════════════════
-     GIGA NOOB — CHARACTER
-     
-     Structure:
-       #nod-wrapper     ← handles the nod animation
-         #character     ← breathing animation
-           #char-body   ← the marshmallow torso
-             .eyes      ← two vertical line eyes
-             #mouth     ← appears only for expressions
-             #arm-left  ← left arm (for pointing)
-             #arm-right ← right arm (for gift reveal)
-             #gift      ← the flower/heart gift item
-           #char-legs   ← two stubby legs
-  ══════════════════════════════════════════════════════════ */
- 
-  /* ── NOD WRAPPER ──────────────────────────────────────────
-     Outer wrapper that rotates for the nodding animation.
-     Separated from #character so breathing and nodding
-     can run independently.                                   */
-  #nod-wrapper {
-    position: absolute;
-    bottom: clamp(27vh, 33vh, 40vh);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-  }
- 
-  /* Nod: two gentle head-bobs via animation iteration */
-  #nod-wrapper.nodding {
-    animation: nod 0.55s ease 0s 2;
-  }
- 
-  @keyframes nod {
-    0%   { transform: translateX(-50%) rotate(0deg); }
-    40%  { transform: translateX(-50%) rotate(14deg); }
-    100% { transform: translateX(-50%) rotate(0deg); }
-  }
- 
-  /* ── CHARACTER + BREATHING ────────────────────────────────
-     2% scaleY breathing cycle — subtle but gives life.       */
-  #character {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    animation: breathe 3.2s ease-in-out infinite;
-  }
- 
-  @keyframes breathe {
-    0%, 100% { transform: scaleY(1)    scaleX(1); }
-    50%       { transform: scaleY(1.03) scaleX(0.98); }
-  }
- 
-  /* ── MARSHMALLOW BODY ─────────────────────────────────────
-     White rounded rectangle — the iconic Giga Noob torso.
-     Contains eyes, mouth, and arms.                          */
-  #char-body {
-    position: relative;
-    width: clamp(48px, 8vw, 64px);
-    height: clamp(60px, 10vw, 76px);
-    background: var(--white);
-    border-radius: 30px 30px 22px 22px;   /* Rounder top, squarer bottom */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 16px;
-  }
- 
-  /* ── EYES CONTAINER ───────────────────────────────────────  */
-  .eyes {
-    display: flex;
-    gap: 14px;
-    align-items: center;
-  }
- 
-  /* ── INDIVIDUAL EYE ───────────────────────────────────────
-     Default: two vertical black lines.
-     State classes change their appearance:
-       .wide    → taller (surprised)
-       .happy   → flipped U shape (^^ closed happy)
-       .look-up → translated upward (looking at moon)         */
-  .eye {
-    width: 3px;
-    height: 12px;
-    background: var(--black);
-    border-radius: 2px;
-    transition: transform 0.35s ease, height 0.35s ease, border-radius 0.35s ease;
-  }
- 
-  /* Wide eyes — activated in Scene 1 */
-  .eye.wide {
-    height: 17px;
-  }
- 
-  /* Happy '^' eyes — activated in Scene 5 */
-  .eye.happy {
-    height: 7px;
-    border-radius: 3px;
-    transform: scaleY(-1);  /* Flip the rounded-top bar to look like ^ */
-  }
- 
-  /* Look-up eyes — activated in Scene 3 */
-  .eye.look-up {
-    transform: translateY(-4px);
-  }
- 
-  /* ── MOUTH ────────────────────────────────────────────────
-     Hidden by default (opacity:0).
-     Shown only for specific expressions.
-     Class variants:
-       .show   → makes it visible
-       .smile  → D-shaped bottom arc
-       .o-face → circular surprised mouth                     */
-  #mouth {
-    width: 11px;
-    height: 6px;
-    border: 2px solid var(--black);
-    border-top: none;
-    border-radius: 0 0 8px 8px;    /* Open D-shape = smile */
-    margin-top: 7px;
-    opacity: 0;
-    transition: opacity var(--bubble-speed) ease,
-                border-radius 0.3s ease,
-                width 0.3s ease,
-                height 0.3s ease;
-  }
- 
-  #mouth.show {
-    opacity: 1;
-  }
- 
-  /* Surprised O-mouth — used in early-release "Wait!" reaction */
-  #mouth.o-face {
-    border-top: 2px solid var(--black);  /* Complete the circle */
-    border-radius: 50%;
-    width: 9px;
-    height: 9px;
-    margin-top: 5px;
-  }
- 
-  /* ── ARMS ─────────────────────────────────────────────────
-     Thin rounded rectangles. Positioned absolutely on the
-     sides of the body. transform-origin at top so they
-     "swing" from the shoulder.
-     
-     State classes:
-       #arm-left.point   → rotates left arm up (pointing at daisy)
-       #arm-right.reach  → gentle raise (wave)
-       #arm-right.gift   → raises high to hold the gift           */
-  #arm-left,
-  #arm-right {
-    position: absolute;
-    width: 11px;
-    height: clamp(22px, 3.5vw, 30px);
-    background: var(--white);
-    border-radius: 6px;
-    top: 28px;
-    transform-origin: top center;
-    transition: transform var(--arm-speed) ease;
-  }
- 
-  #arm-left  { left:  -8px; transform: rotate(12deg); }
-  #arm-right { right: -8px; transform: rotate(-12deg); }
- 
-  /* Left arm raised — points toward the daisy */
-  #arm-left.point {
-    transform: rotate(-75deg) translateY(-6px);
-  }
- 
-  /* Right arm raised to gift height */
-  #arm-right.gift {
-    transform: rotate(-95deg) translateY(-18px);
-  }
- 
-  /* ── GIFT ITEM ────────────────────────────────────────────
-     Starts invisible and scaled down.
-     The .show class animates it into view above the arm.
-     drop-shadow gives it a soft pink glow aura.              */
-  #gift {
-    position: absolute;
-    top: -14px;
-    right: -22px;
-    font-size: 18px;
-    opacity: 0;
-    transform: scale(0.2) translateY(16px);
-    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    filter: drop-shadow(0 0 7px rgba(255, 160, 210, 0.9));
-    pointer-events: none;
-  }
- 
-  #gift.show {
-    opacity: 1;
-    transform: scale(1.5) translateY(-12px);
-  }
- 
-  /* ── LEGS ─────────────────────────────────────────────────
-     Two stubby rounded rectangles below the body.           */
-  #char-legs {
-    display: flex;
-    gap: 10px;
-    margin-top: 2px;
-  }
- 
-  .leg {
-    width: clamp(11px, 2vw, 16px);
-    height: clamp(12px, 2vw, 18px);
-    background: var(--white);
-    border-radius: 0 0 8px 8px;
-  }
- 
- 
-  /* ══════════════════════════════════════════════════════════
-     DIALOGUE SPEECH BUBBLE
-  ══════════════════════════════════════════════════════════ */
- 
-  /* ── SPEECH BUBBLE ────────────────────────────────────────
-     Appears above the character.
-     Starts invisible + shifted down. .show brings it up.
-     The ::after pseudo-element draws the triangle tail.      */
-  #bubble {
-    position: absolute;
-    bottom: clamp(50vh, 57vh, 64vh);
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
- 
-    background: var(--white);
-    color: var(--black);
-    font-family: var(--font-retro);
-    font-size: clamp(12px, 2vw, 15px);
-    padding: 10px 18px;
-    border-radius: 18px 18px 18px 4px;
-    white-space: nowrap;
- 
-    opacity: 0;
-    pointer-events: none;
-    transition:
-      opacity  var(--bubble-speed) ease,
-      transform var(--bubble-speed) ease;
- 
-    box-shadow: 0 2px 16px rgba(255, 255, 255, 0.10);
-    z-index: 20;
-  }
- 
-  /* Reveal state */
-  #bubble.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
- 
-  /* Speech bubble tail (pointing down-left) */
-  #bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 18px;
-    width: 0;
-    height: 0;
-    border-left:  9px solid transparent;
-    border-right: 0   solid transparent;
-    border-top:   9px solid var(--white);
-  }
- 
- 
-  /* ══════════════════════════════════════════════════════════
-     TARGET / HOLD ZONE
-  ══════════════════════════════════════════════════════════ */
- 
-  /* ── TARGET HITBOX ────────────────────────────────────────
-     Transparent, larger than the visible ring for easy tapping. */
-  #target-zone {
-    position: absolute;
-    bottom: clamp(40px, 8vh, 80px);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-  }
- 
-  /* ── PULSING RING ─────────────────────────────────────────
-     Animated white circle ring.
-     ::after = the small center dot.
-     .active class = user is holding (glow state).           */
-  #target-ring {
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.55);
- 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
- 
-    animation: pulse 2.2s ease-in-out infinite;
-    transition:
-      background     0.3s ease,
-      border-color   0.3s ease,
-      box-shadow     0.3s ease;
-  }
- 
-  /* Small center dot inside the ring */
-  #target-ring::after {
-    content: '';
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.45);
-    transition: background 0.3s ease;
-  }
- 
-  /* While holding — ring fills with glow */
-  #target-ring.active {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: var(--white);
-    box-shadow: 0 0 22px 8px rgba(255, 255, 255, 0.28);
-    animation: none;
-  }
- 
-  #target-ring.active::after {
-    background: rgba(255, 255, 255, 0.85);
-  }
- 
-  /* Idle pulse keyframe */
-  @keyframes pulse {
-    0%,  100% { transform: scale(1.00); opacity: 0.55; }
-    50%        { transform: scale(1.14); opacity: 1.00; }
-  }
- 
- 
-  /* ══════════════════════════════════════════════════════════
-     UI TEXT OVERLAYS
-  ══════════════════════════════════════════════════════════ */
- 
-  /* ── "Put your finger here" PROMPT ───────────────────────  */
-  #prompt-text {
-    position: absolute;
-    bottom: clamp(12px, 2.5vh, 22px);
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255, 255, 255, 0.72);
-    font-family: var(--font-retro);
-    font-size: clamp(11px, 1.8vw, 14px);
-    white-space: nowrap;
-    letter-spacing: 0.09em;
-    transition: opacity 0.5s ease;
-    z-index: 10;
-    pointer-events: none;
-  }
- 
-  /* ── "Hold to continue" HINT ──────────────────────────────
-     Shows once the user starts holding (replaces the prompt). */
-  #hold-hint {
-    position: absolute;
-    top: clamp(12px, 2.5vh, 20px);
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255, 255, 255, 0.28);
-    font-family: var(--font-retro);
-    font-size: clamp(10px, 1.5vw, 12px);
-    letter-spacing: 0.06em;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    pointer-events: none;
-    z-index: 10;
-  }
- 
-  #hold-hint.show { opacity: 1; }
- 
-  /* ── MUTE BUTTON ──────────────────────────────────────────
-     Small musical-note toggle in the top-left corner.        */
-  #mute-btn {
-    position: absolute;
-    top: clamp(10px, 2vh, 18px);
-    left: clamp(10px, 2vw, 20px);
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 15px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.25s, border-color 0.25s;
-    z-index: 30;
-    user-select: none;
-  }
- 
-  #mute-btn:hover {
-    background: rgba(255, 255, 255, 0.16);
-    border-color: rgba(255, 255, 255, 0.4);
-  }
- 
-  #mute-btn.muted { opacity: 0.38; }
- 
- 
-  /* ══════════════════════════════════════════════════════════
-     RELEASE FLASH OVERLAY
-     
-     A quick dark flash when the user lets go mid-sequence.
-     Conveys that Giga Noob is surprised / sad.
-  ══════════════════════════════════════════════════════════ */
-  #sad-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0);
-    pointer-events: none;
-    z-index: 5;
-    transition: background 0.4s ease;
-  }
- 
-  #sad-overlay.flash {
-    background: rgba(0, 0, 0, 0.45);
-  }
- 
- 
-  /* ══════════════════════════════════════════════════════════
-     RESPONSIVE ADJUSTMENTS
-     Keeps everything centered and readable on small screens.
-  ══════════════════════════════════════════════════════════ */
-  @media (max-height: 500px) {
-    #moon { top: 10px; width: 60px; height: 60px; }
-    #char-body { width: 44px; height: 52px; }
-    #bubble { font-size: 11px; padding: 7px 12px; }
-  }
+}
