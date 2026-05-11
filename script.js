@@ -1,87 +1,60 @@
 const giga = document.getElementById("giga");
+const gigaImg = document.getElementById("giga-img");
 const bubble = document.getElementById("bubble");
-const leftArm = document.getElementById("left-arm");
-const targetRing = document.getElementById("target-ring");
 const heldFlower = document.getElementById("held-flower");
 
-let walking = false;
-let flowerTriggered = false;
-let waitingForChoice = false;
-let flowerAccepted = false;
+let walkFrame = 1;
+let stopped = false;
 
-/* Start walking */
+/* walking animation */
 
-function startWalk() {
-  if (walking) return;
+const walkingLoop = setInterval(() => {
+  if (!stopped) {
+    giga.classList.add("walking");
 
-  walking = true;
-  giga.classList.add("walking");
-}
+    if (walkFrame === 1) {
+      gigaImg.src = "walk2.png";
+      walkFrame = 2;
+    } else {
+      gigaImg.src = "walk1.png";
+      walkFrame = 1;
+    }
+  }
+}, 400);
 
-/* Stop walking */
+/* FLOWER SCENE */
 
-function stopWalk() {
-  walking = false;
+setTimeout(() => {
+  stopped = true;
+
   giga.classList.remove("walking");
-}
+  giga.classList.add("flower-scene");
 
-/* Flower Scene */
+  /* switch to pointing pose */
+  gigaImg.src = "giga-front.png";
 
-function flowerScene() {
-  if (flowerTriggered) return;
-
-  flowerTriggered = true;
-  waitingForChoice = true;
-
-  stopWalk();
-
-  giga.style.transform =
-    "translateX(-50%) rotate(-8deg)";
-
-  giga.classList.add("talking");
-
-  leftArm.style.opacity = "1";
-
+  /* dialogue */
   bubble.innerText = "want?";
-  bubble.style.opacity = "1";
-}
+  bubble.classList.add("show");
 
-/* Accept Flower */
+}, 3500);
 
-function acceptFlower() {
-  if (!waitingForChoice || flowerAccepted) return;
+/* USER NODS → GIVE FLOWER */
 
-  flowerAccepted = true;
-  waitingForChoice = false;
+setTimeout(() => {
+  bubble.classList.remove("show");
 
-  bubble.innerText = "for you";
+  /* show held flower */
   heldFlower.style.opacity = "1";
 
-  setTimeout(() => {
-    bubble.style.opacity = "0";
-    leftArm.style.opacity = "0";
+}, 6000);
 
-    giga.classList.remove("talking");
-    giga.style.transform =
-      "translateX(-50%)";
+/* CONTINUE WALKING */
 
-  }, 2500);
-}
+setTimeout(() => {
+  stopped = false;
 
-/* Hover trigger */
+  giga.classList.remove("flower-scene");
+  gigaImg.src = "walk1.png";
 
-targetRing.addEventListener("mouseenter", () => {
-  startWalk();
-
-  setTimeout(() => {
-    flowerScene();
-  }, 2500);
-});
-
-/* SPACE = yes */
-
-document.addEventListener("keydown", (e) => {
-  if (e.code === "Space") {
-    acceptFlower();
-  }
-});
+}, 7000);

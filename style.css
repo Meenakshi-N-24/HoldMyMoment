@@ -98,166 +98,125 @@ body {
 /* FLOWER */
 /* ---------------- */
 
+/* FLOWER MOMENT — giga turns slightly toward us */
+
 #flower-side {
   position: absolute;
-  right: 32%;
-  top: 260px;
-  font-size: 42px;
-  z-index: 3;
+  right: 38%;
+  bottom: 210px;
+
+  transform: scale(1.8);
+  transform-origin: bottom center;
+
+  z-index: 5;
+}
+
+#flower-side img {
+  width: 90px;
+  display: block;
+}
+
+#held-flower {
+  position: absolute;
+  right: 120px;
+  bottom: 120px;
+
+  opacity: 0;
+  z-index: 30;
+
+  transition: 0.4s ease;
+}
+
+#held-flower img {
+  width: 110px;
+  display: block;
+
+  animation: sway 2s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% {
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+/* speech bubble */
+
+#bubble {
+  position: absolute;
+  left: 46%;
+  bottom: 330px;
+
+  background: white;
+  color: black;
+
+  padding: 10px 18px;
+  border-radius: 20px;
+
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+
+  border: 3px solid black;
+
+  opacity: 0;
+  transition: 0.4s ease;
+
+  z-index: 20;
+}
+
+/* bubble visible */
+
+#bubble.show {
+  opacity: 1;
 }
 
 /* ---------------- */
-/* CUTE GIGA */
-/* ---------------- */
-
-/* ---------------- */
-/* PLAYGIGA POSE */
+/* PNG GIGA */
 /* ---------------- */
 
 #giga {
   position: absolute;
-  bottom: 95px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 5;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 10;
 }
 
-/* Head */
-
-#giga-head {
-  width: 80px;
-  height: 80px;
-  background: white;
-  border-radius: 50%;
-  position: relative;
-  z-index: 3;
+#giga img {
+  width: 260px;
+  display: block;
 }
 
-/* Hide eyes by default */
+/* Walking bounce */
 
-#giga-head::before,
-#giga-head::after {
-  content: "";
-  position: absolute;
-  opacity: 0;
+.walking img {
+  animation: walkBounce 0.45s ease-in-out infinite;
 }
 
-/* Eyes */
-/* Eyes appear only during talking moment */
+@keyframes walkBounce {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
 
-#giga.talking #giga-head::before,
-#giga.talking #giga-head::after {
-  width: 8px;
-  height: 32px;
-  background: black;
-  border-radius: 4px;
-  top: 28px;
-  opacity: 1;
+  50% {
+    transform: translateY(-8px) rotate(-1deg);
+  }
 }
 
-#giga.talking #giga-head::before {
-  left: 28px;
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
 }
 
-#giga.talking #giga-head::after {
-  right: 28px;
-}
-
-
-/* Body */
-
-#giga-body {
-  width: 75px;
-  height: 110px;
-  background: #f8f8f8;
-box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
-  border-radius: 35px 35px 25px 25px;
-  margin-top: -12px;
-  z-index: 2;
-}
-
-/* Eyes appear only during talking moment */
-
-#giga.talking #giga-head::before,
-#giga.talking #giga-head::after {
-  width: 8px;
-  height: 32px;
-  background: black;
-  border-radius: 4px;
-  top: 28px;
-  opacity: 1;
-}
-
-#giga.talking #giga-head::before {
-  left: 28px;
-}
-
-#giga.talking #giga-head::after {
-  right: 28px;
-}
-
-/* LEFT ARM = pointing to flower */
-
-/* RIGHT ARM = holding our hand */
-
-#right-arm {
-  position: absolute;
-  width: 24px;
-  height: 90px;
-  background: white;
-  border-radius: 20px;
-
-  top: 130px;
-  left: -35px;
-
-  transform: rotate(60deg);
-  z-index: 1;
-}
-
-/* LEFT ARM hidden by default */
-
-#left-arm {
-  position: absolute;
-  width: 22px;
-  height: 75px;
-  background: white;
-  border-radius: 20px;
-
-  top: 90px;
-  right: -5px;
-
-  transform: rotate(-60deg);
-  opacity: 0;
-
-  z-index: 1;
-}
-
-/* Legs */
-
-#legs {
-  display: flex;
-  gap: 14px;
-  margin-top: -4px;
-}
-
-.leg {
-  width: 18px;
-  height: 32px;
-  background: white;
-  border-radius: 0 0 14px 14px;
-}
-
-.left-leg {
-  transform: rotate(4deg);
-}
-
-.right-leg {
-  transform: rotate(-4deg);
-}
 /* ---------------- */
 /* TARGET */
 /* ---------------- */
