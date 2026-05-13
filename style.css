@@ -24,13 +24,19 @@ body {
 
 #moon {
   position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70px;
-  height: 70px;
-  background: white;
+  top: 40px;
+  right: 22%;
+
+  width: 80px;
+  height: 80px;
+
+  background: #fff;
   border-radius: 50%;
+
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.3),
+    0 0 60px rgba(255,255,255,0.15);
+
   z-index: 2;
 }
 
@@ -52,6 +58,11 @@ body {
 .s3 { top: 200px; left: 300px; }
 .s4 { top: 160px; right: 350px; }
 .s5 { top: 250px; left: 500px; }
+.s6 { top: 90px; left: 60%; }
+.s7 { top: 140px; left: 75%; }
+.s8 { top: 210px; left: 18%; }
+.s9 { top: 120px; left: 85%; }
+.s10 { top: 60px; left: 40%; }
 
 /* ---------------- */
 /* ROAD */
@@ -94,93 +105,70 @@ body {
   transform: rotate(-8deg);
 }
 
-/* ---------------- */
-/* FLOWER */
-/* ---------------- */
+/* ===================== */
+/* GRASS DETAILS */
+/* ===================== */
 
-/* FLOWER MOMENT — giga turns slightly toward us */
+/* ===================== */
+/* REAL \ | / GRASS */
+/* ===================== */
 
-#flower-side {
+.grass {
   position: absolute;
-  right: 38%;
-  bottom: 210px;
-
-  transform: scale(1.8);
-  transform-origin: bottom center;
-
-  z-index: 5;
+  width: 18px;
+  height: 16px;
+  z-index: 3;
 }
 
-#flower-side img {
-  width: 90px;
-  display: block;
-}
-
-#held-flower {
+.grass::before,
+.grass::after,
+.grass span {
   position: absolute;
-  right: 120px;
-  bottom: 120px;
-
-  opacity: 0;
-  z-index: 30;
-
-  transition: 0.4s ease;
+  bottom: 0;
+  width: 2px;
+  height: 12px;
+  background: black;
+  border-radius: 2px;
+  content: "";
 }
 
-#held-flower img {
-  width: 110px;
-  display: block;
-
-  animation: sway 2s ease-in-out infinite;
+/* left blade */
+.grass::before {
+  left: 2px;
+  transform: rotate(-25deg);
 }
 
-@keyframes sway {
-  0%, 100% {
-    transform: rotate(-4deg);
-  }
-
-  50% {
-    transform: rotate(4deg);
-  }
+/* middle blade */
+.grass span {
+  left: 8px;
+  transform: rotate(0deg);
 }
 
-/* speech bubble */
-
-#bubble {
-  position: absolute;
-  left: 46%;
-  bottom: 330px;
-
-  background: white;
-  color: black;
-
-  padding: 10px 18px;
-  border-radius: 20px;
-
-  font-size: 24px;
-  font-family: Arial, sans-serif;
-
-  border: 3px solid black;
-
-  opacity: 0;
-  transition: 0.4s ease;
-
-  z-index: 20;
+/* right blade */
+.grass::after {
+  left: 14px;
+  transform: rotate(25deg);
 }
 
-/* bubble visible */
+/* positions */
 
-#bubble.show {
-  opacity: 1;
-}
+.g1 { left: 8%; bottom: 170px; }
+.g2 { left: 14%; bottom: 230px; }
+.g3 { left: 20%; bottom: 280px; }
+.g4 { left: 26%; bottom: 190px; }
+
+.g5 { right: 10%; bottom: 180px; }
+.g6 { right: 16%; bottom: 240px; }
+.g7 { right: 22%; bottom: 300px; }
+.g8 { right: 28%; bottom: 210px; }
 
 /* ---------------- */
-/* PNG GIGA */
+/* GIGA */
 /* ---------------- */
 
 #giga {
   position: absolute;
-  bottom: 40px;
+  bottom: 5px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -191,70 +179,73 @@ body {
   display: block;
 }
 
-/* Walking bounce */
-
 .walking img {
   animation: walkBounce 0.45s ease-in-out infinite;
 }
 
 @keyframes walkBounce {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px);
   }
 
   50% {
-    transform: translateY(-8px) rotate(-1deg);
+    transform: translateY(-8px);
   }
 }
 
-@keyframes breathe {
-  0%, 100% {
-    transform: scale(1);
-  }
+/* giga turns during flower scene */
 
-  50% {
-    transform: scale(1.02);
-  }
+#giga.flower-scene {
+  transform: translateX(-50%) rotate(-8deg);
 }
 
 /* ---------------- */
-/* TARGET */
+/* ROADSIDE FLOWER */
 /* ---------------- */
 
-#target-ring {
+/* roadside flower */
+
+/* roadside flower */
+
+#flower-side {
   position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 110px;
-  height: 110px;
-  border: 2px solid rgba(0,0,0,0.4);
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  z-index: 6;
+
+  right: 40%;
+  bottom: 170px;
+
+  transform: scale(1.2);
+  transform-origin: bottom center;
+
+  z-index: 5;
+  transition: 0.5s ease;
 }
 
-/* ---------------- */
-/* PROMPT */
-/* ---------------- */
+#flower-side img {
+  width: 75px;
+  display: block;
+}
 
-#prompt {
+#held-flower {
   position: absolute;
-  bottom: 35px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  font-size: 14px;
-  z-index: 7;
+
+  left: 650px;
+  bottom: -30px;
+
+  opacity: 0;
+
+  z-index: 90;
+  pointer-events: none;
+
+  transition: opacity 0.5s ease;
 }
 
 /* ---------------- */
-/* BUBBLE */
+/* SPEECH BUBBLE */
 /* ---------------- */
 
 #bubble {
   position: absolute;
-  left: 39%;
+  left: 40%;
   bottom: 290px;
 
   background: white;
@@ -271,9 +262,12 @@ body {
   z-index: 20;
 
   transform: rotate(-8deg);
+  transition: 0.4s ease;
 }
 
-/* little bubble tail */
+#bubble.show {
+  opacity: 1;
+}
 
 #bubble::after {
   content: "";
@@ -292,75 +286,116 @@ body {
   transform: rotate(-35deg);
 }
 
-/* walking bounce */
+/* ===================== */
+/* DOUBLE SCREEN NOD */
+/* ===================== */
 
-
-.walking {
-  animation: gigaWalk 0.5s ease-in-out infinite;
+#scene.nod {
+  animation: doubleNod 1s ease;
 }
 
-.walking .left-leg {
-  animation: leftStep 0.5s ease-in-out infinite;
+@keyframes doubleNod {
+  0% {
+    transform: translateY(0px);
+  }
+
+  15% {
+    transform: translateY(18px);
+  }
+
+  30% {
+    transform: translateY(0px);
+  }
+
+  45% {
+    transform: translateY(16px);
+  }
+
+  60% {
+    transform: translateY(0px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
-.walking .right-leg {
-  animation: rightStep 0.5s ease-in-out infinite;
+#held-flower img {
+  width: 100px;
+  display: block;
+
+  transform-origin: bottom left;
+  animation: flowerHoldSway 2s ease-in-out infinite;
 }
 
-/* Flower in our hand */
+@keyframes flowerHoldSway {
+  0%, 100% {
+    /* flower leans more to left */
+    transform: rotate(-8deg) translateY(0px);
+  }
 
-#held-flower {
+  50% {
+    /* comes slightly back but still left side */
+    transform: rotate(-2deg) translateY(-3px);
+  }
+}
+
+
+/* ===================== */
+/* GELATO STALL */
+/* ===================== */
+
+#gelato-stall {
   position: absolute;
-  right: 180px;
-  bottom: 160px;
 
-  font-size: 48px;
+  right: 18%;
+  bottom: 170px;
+
+  opacity: 0;
+  z-index: 5;
+
+  transition: 0.5s ease;
+}
+
+#gelato-stall img {
+  width: 160px;
+  display: block;
+}
+
+
+/* ===================== */
+/* HELD GELATO */
+/* ===================== */
+
+#held-gelato {
+  position: absolute;
+
+  left: 650px;
+  bottom: -30px;
+
   opacity: 0;
 
-  z-index: 30;
-  transition: 0.4s ease;
+  z-index: 90;
+  pointer-events: none;
+
+  transition: 0.5s ease;
 }
 
-/* ---------------- */
-/* WALKING ANIMATION */
-/* ---------------- */
+#held-gelato img {
+  width: 65px;
+  display: block;
 
-@keyframes gigaWalk {
+  animation: gelatoSway 2s ease-in-out infinite;
+}
+
+@keyframes gelatoSway {
   0%, 100% {
-    transform: translateX(-50%) translateY(0px);
+    /* gelato leans to right */
+    transform: rotate(6deg) translateY(0px);
   }
 
   50% {
-    transform: translateX(-50%) translateY(-6px);
-  }
-}
-
-@keyframes leftStep {
-  0%, 100% {
-    transform: rotate(8deg);
-  }
-
-  50% {
-    transform: rotate(-8deg);
-  }
-}
-
-@keyframes rightStep {
-  0%, 100% {
-    transform: rotate(-8deg);
-  }
-
-  50% {
-    transform: rotate(8deg);
-  }
-}
-
-@keyframes breathe {
-  0%, 100% {
-    transform: translateX(-50%) scale(1);
-  }
-
-  50% {
-    transform: translateX(-50%) scale(1.03);
+    /* comes slightly back but still right side */
+    transform: rotate(1deg) translateY(-2px);
   }
 }
