@@ -75,35 +75,121 @@ body {
   transform: translateX(-50%);
 
   width: 100%;
-  height: 40vh;
+  height: 42vh;
 
   background: #e8e8e8;
   border-radius: 50% 50% 0 0;
 
   z-index: 1;
+  overflow: hidden;
+
+  /* subtle ground manga texture */
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(0,0,0,0.015) 0.5px,
+      transparent 0.5px
+    ),
+    radial-gradient(
+      circle,
+      rgba(0,0,0,0.008) 0.5px,
+      transparent 0.5px
+    );
+
+  background-size:
+    18px 18px,
+    18px 18px;
+
+  background-position:
+    0 0,
+    7px 7px;
 }
 
-/* simple path lines */
+
+/* ---------------- */
+/* ROAD BORDER LINES */
+/* ---------------- */
 
 #road::before,
 #road::after {
   content: "";
   position: absolute;
-  top: 0;
-  width: 4px;
-  height: 100%;
-  background: rgba(0,0,0,0.25);
+  top: -10px;
+
+  height: 110%;
+  width: 5px;
+
+  background: rgba(0,0,0,0.45);
+
+  z-index: 3;
 }
+
+/* left border line */
 
 #road::before {
   left: 42%;
-  transform: rotate(8deg);
+  transform: rotate(4deg);
 }
+
+/* right border line */
 
 #road::after {
   right: 42%;
-  transform: rotate(-8deg);
+  transform: rotate(-4deg);
 }
+
+
+/* ---------------- */
+/* ROAD SHADE */
+/* hugs border + visible */
+/* ---------------- */
+
+.road-shade {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 32px; /* thicker again */
+
+  z-index: 2;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      rgba(0,0,0,0.16) 1px, /* darker again */
+      transparent 1px
+    );
+
+  background-size: 4px 4px;
+}
+
+
+/* LEFT */
+
+.road-shade.left {
+  left: 41.3%;
+
+  clip-path: polygon(
+    78% 0,     /* was 55% */
+    100% 0,
+    92% 100%,
+    0 100%
+  );
+}
+
+
+/* RIGHT */
+
+.road-shade.right {
+  right: 41.3%;
+
+  clip-path: polygon(
+    0 0,
+    22% 0,     /* was 45% */
+    100% 100%,
+    8% 100%
+  );
+}
+
 
 /* ===================== */
 /* GRASS DETAILS */
@@ -155,10 +241,6 @@ body {
   transform: rotate(35deg);
 }
 
-/* positions */
-
-/* more natural spread */
-
 /* grounded grass positions */
 
 /* grass stays OUTSIDE the road */
@@ -179,7 +261,7 @@ body {
 .g11 { right: 30%; bottom: 200px; }
 .g12 { right: 34%; bottom: 150px; }
 
-.g13 { left: 10%; bottom: 230px; }
+.g13 { left: 16%; bottom: 190px; }
 .g14 { right: 10%; bottom: 240px; }
 
 .g15 { left: 16%; bottom: 260px; }
