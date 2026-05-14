@@ -14,6 +14,9 @@ const heldFlower = document.getElementById("held-flower");
 const gelatoStall = document.getElementById("gelato-stall");
 const heldGelato = document.getElementById("held-gelato");
 
+const clawMachine = document.getElementById("claw-machine");
+const heldPlush = document.getElementById("held-plush");
+
 
 /* ===================== */
 /* VARIABLES */
@@ -94,6 +97,29 @@ setTimeout(() => {
 }, 6000);
 
 /* ===================== */
+/* CONTINUE WALKING AFTER FLOWER */
+/* ===================== */
+
+setTimeout(() => {
+  stopped = false;
+
+  giga.classList.remove("flower-scene");
+  gigaImg.src = "Assets/walk1.png";
+
+}, 7200);
+
+
+/* ===================== */
+/* WALK BEFORE GELATO */
+/* ===================== */
+
+setTimeout(() => {
+  /* gelato stall appears while walking */
+  gelatoStall.style.opacity = "1";
+
+}, 9800);
+
+/* ===================== */
 /* GELATO SCENE */
 /* ===================== */
 
@@ -150,3 +176,96 @@ setTimeout(() => {
   gigaImg.src = "Assets/walk1.png";
 
 }, 14200);
+
+/* ===================== */
+/* CLAW MACHINE SCENE */
+/* ===================== */
+
+setTimeout(() => {
+  clawMachine.style.opacity = "1";
+
+}, 17000);
+
+
+setTimeout(() => {
+  stopped = true;
+
+  giga.classList.remove("walking");
+  giga.classList.add("flower-scene");
+
+  gigaImg.src = "Assets/giga-front.png";
+
+  bubble.innerText = "want one?";
+  bubble.classList.add("show");
+
+}, 18800);
+
+
+/* double nod */
+
+setTimeout(() => {
+  scene.classList.add("nod");
+
+  setTimeout(() => {
+    scene.classList.remove("nod");
+  }, 1000);
+
+}, 20200);
+
+
+/* give plush */
+
+setTimeout(() => {
+  bubble.classList.remove("show");
+
+  clawMachine.style.opacity = "0";
+  heldPlush.style.opacity = "1";
+
+}, 21200);
+
+
+/* continue walking */
+
+setTimeout(() => {
+  stopped = false;
+
+  giga.classList.remove("flower-scene");
+  gigaImg.src = "Assets/walk1.png";
+
+}, 22400);
+
+/* ===================== */
+/* FINAL SCENE */
+/* I love you :3 */
+/* ===================== */
+
+setTimeout(() => {
+  /* stop walking */
+  stopped = true;
+
+  giga.classList.remove("walking");
+  giga.classList.add("flower-scene");
+
+  /* final facing pose */
+  gigaImg.src = "Assets/giga-front.png";
+
+  /* little pause before confession */
+}, 24000);
+
+
+/* confession appears after pause */
+
+setTimeout(() => {
+  bubble.innerText = "I love you :3";
+  bubble.classList.add("show");
+
+}, 26000);
+
+
+/* soft fade ending */
+
+setTimeout(() => {
+  document.body.style.transition = "2s ease";
+  document.body.style.opacity = "0";
+
+}, 30000);

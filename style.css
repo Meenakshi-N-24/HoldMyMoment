@@ -75,7 +75,7 @@ body {
   transform: translateX(-50%);
 
   width: 100%;
-  height: 45vh;
+  height: 40vh;
 
   background: #e8e8e8;
   border-radius: 50% 50% 0 0;
@@ -109,58 +109,134 @@ body {
 /* GRASS DETAILS */
 /* ===================== */
 
-/* ===================== */
-/* REAL \ | / GRASS */
-/* ===================== */
+/* subtle grass breeze sway */
 
 .grass {
   position: absolute;
-  width: 18px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   z-index: 3;
+
+  transform-origin: bottom center;
 }
 
 .grass::before,
 .grass::after,
 .grass span {
+  content: "";
   position: absolute;
   bottom: 0;
-  width: 2px;
-  height: 12px;
-  background: black;
-  border-radius: 2px;
-  content: "";
+
+  width: 8px;
+  height: 14px;
+
+  border-left: 3px solid black;
+  border-radius: 50%;
+
+  background: transparent;
 }
 
-/* left blade */
+/* left curved blade */
 .grass::before {
   left: 2px;
-  transform: rotate(-25deg);
+  transform: rotate(-35deg);
 }
 
-/* middle blade */
+/* middle curved blade */
 .grass span {
   left: 8px;
+  height: 16px;
   transform: rotate(0deg);
 }
 
-/* right blade */
+/* right curved blade */
 .grass::after {
   left: 14px;
-  transform: rotate(25deg);
+  transform: rotate(35deg);
 }
 
 /* positions */
 
-.g1 { left: 8%; bottom: 170px; }
-.g2 { left: 14%; bottom: 230px; }
-.g3 { left: 20%; bottom: 280px; }
-.g4 { left: 26%; bottom: 190px; }
+/* more natural spread */
 
-.g5 { right: 10%; bottom: 180px; }
-.g6 { right: 16%; bottom: 240px; }
-.g7 { right: 22%; bottom: 300px; }
-.g8 { right: 28%; bottom: 210px; }
+/* grounded grass positions */
+
+/* grass stays OUTSIDE the road */
+
+.g1  { left: 6%;  bottom: 90px; }
+.g2  { left: 12%; bottom: 130px; }
+.g3  { left: 18%; bottom: 170px; }
+.g4  { left: 24%; bottom: 110px; }
+
+.g5  { left: 30%; bottom: 190px; }
+.g6  { left: 34%; bottom: 140px; }
+
+.g7  { right: 6%;  bottom: 100px; }
+.g8  { right: 12%; bottom: 150px; }
+.g9  { right: 18%; bottom: 190px; }
+.g10 { right: 24%; bottom: 120px; }
+
+.g11 { right: 30%; bottom: 200px; }
+.g12 { right: 34%; bottom: 150px; }
+
+.g13 { left: 10%; bottom: 230px; }
+.g14 { right: 10%; bottom: 240px; }
+
+.g15 { left: 16%; bottom: 260px; }
+.g16 { right: 16%; bottom: 270px; }
+
+.g1, .g5, .g9, .g13 {
+  animation: swayA 4s ease-in-out infinite;
+}
+
+.g2, .g6, .g10, .g14 {
+  animation: swayB 5s ease-in-out infinite;
+}
+
+.g3, .g7, .g11, .g15 {
+  animation: swayC 4.5s ease-in-out infinite;
+}
+
+.g4, .g8, .g12, .g16 {
+  animation: swayD 5.5s ease-in-out infinite;
+}
+
+@keyframes swayA {
+  0%, 100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(5deg) translateY(-1px);
+  }
+}
+
+@keyframes swayB {
+  0%, 100% {
+    transform: rotate(4deg);
+  }
+  50% {
+    transform: rotate(-5deg) translateY(-2px);
+  }
+}
+
+@keyframes swayC {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(6deg) translateY(-1px);
+  }
+}
+
+@keyframes swayD {
+  0%, 100% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-4deg) translateY(-2px);
+  }
+}
+
 
 /* ---------------- */
 /* GIGA */
@@ -180,18 +256,43 @@ body {
 }
 
 .walking img {
-  animation: walkBounce 0.45s ease-in-out infinite;
+  animation:
+    walkBounce 0.55s ease-in-out infinite,
+    breathe 2.8s ease-in-out infinite;
 }
+
+/* softer walk bounce */
 
 @keyframes walkBounce {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-4px) rotate(-0.5deg);
   }
 
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-8px) rotate(0deg);
+  }
+
+  75% {
+    transform: translateY(-4px) rotate(0.5deg);
   }
 }
+
+/* tiny breathing motion */
+
+@keyframes breathe {
+  0%, 100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.03);
+  }
+}
+
 
 /* giga turns during flower scene */
 
@@ -202,10 +303,6 @@ body {
 /* ---------------- */
 /* ROADSIDE FLOWER */
 /* ---------------- */
-
-/* roadside flower */
-
-/* roadside flower */
 
 #flower-side {
   position: absolute;
@@ -348,7 +445,7 @@ body {
 #gelato-stall {
   position: absolute;
 
-  right: 18%;
+  right: 33%;
   bottom: 170px;
 
   opacity: 0;
@@ -396,6 +493,62 @@ body {
 
   50% {
     /* comes slightly back but still right side */
+    transform: rotate(1deg) translateY(-2px);
+  }
+}
+
+/* ===================== */
+/* CLAW MACHINE */
+/* ===================== */
+
+#claw-machine {
+  position: absolute;
+
+  right: 32%;
+  bottom: 170px;
+
+  opacity: 0;
+  z-index: 5;
+
+  transition: 0.5s ease;
+}
+
+#claw-machine img {
+  width: 180px;
+  display: block;
+}
+
+/* ===================== */
+/* HELD PLUSH */
+/* ===================== */
+
+#held-plush {
+  position: absolute;
+
+  left: 680px;
+  bottom: -20px;
+
+  opacity: 0;
+
+  z-index: 92;
+  pointer-events: none;
+
+  transition: 0.5s ease;
+}
+
+#held-plush img {
+  width: 81px;
+  display: block;
+
+  animation: plushSway 2s ease-in-out infinite;
+}
+
+@keyframes plushSway {
+  0%, 100% {
+    transform: rotate(5deg) translateY(0px);
+  }
+
+  50% {
     transform: rotate(1deg) translateY(-2px);
   }
 }
